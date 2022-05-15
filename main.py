@@ -1,6 +1,7 @@
 import csv
 import json
-import time
+import random
+
 
 while True:
     with open('recipe.txt') as f:
@@ -9,27 +10,20 @@ while True:
     with open('recipes10.csv', mode='r') as csv_file:
 
         csv_reader = csv.DictReader(csv_file)
-        line_count = 0
 
         recipes = []
 
         for row in csv_reader:
-            if line_count < 3:
-                if user_input and user_input in row["ingredients_raw_str"]:
-                    recipes.append(row)
-                    line_count += 1
+            if user_input and user_input in row["ingredients_raw_str"]:
+                recipes.append(row)
 
     data = {}
 
-    time.sleep(3)
-
     if user_input:
         if len(recipes) < 1:
-            data['error'] = "No recipes found. Try different ingredient"
+            data['error'] = "No recipes found. Try a different ingredient"
         else:
-            data['recipes'] = recipes
-    # else:
-    #     data['error'] = "Please enter an ingredient"
+            data['recipes'] = random.choices(recipes, k=3)
 
         final = json.dumps(data, indent=2)
 
