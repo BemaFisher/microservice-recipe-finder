@@ -1,6 +1,7 @@
 import csv
 import json
 import random
+import time
 
 
 while True:
@@ -29,3 +30,9 @@ while True:
 
         with open('recipes.json', 'w') as outfile:
             outfile.write(final)
+
+        time.sleep(1)
+
+        with open('recipe.txt', 'r+') as f:
+            f.truncate(0)
+            f.seek(0)
